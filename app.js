@@ -6,14 +6,11 @@ dotenv.config();
 const express = require("express");
 const session = require("express-session");
 const KnexStore = require("connect-session-knex")(session);
-const db = require("./db/db")
+const db = require("./db/db");
 if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const sessionStore = new KnexStore({ knex: db });
 const app = express();
 
-if (process.env.NODE_ENV === "test") {
-  after("close the session store", () => sessionStore.stopExpiringSessions());
-}
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -34,8 +31,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Import all routes
-const authRouter  = require("./routes/auth.route");
-const userRouter  = require("./routes/user.route");
+const authRouter = require("./routes/auth.route");
+const userRouter = require("./routes/user.route");
 
 //default Route
 app.get("/", (req, res) => {
