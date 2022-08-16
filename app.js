@@ -19,8 +19,6 @@ app.use(
     saveUninitialized: false,
   })
 );
-
-// Set Security HTTP Headers
 app.use(helmet());
 
 // Development logging
